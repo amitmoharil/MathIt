@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<div class="card formproject">
+    <form class="form" action="{{url_for('enter')}}" method="POST">
+        <div class="form-group">
+            <label for='name'>Name</label><br>
+            <input type="text" name='name' value='{{name}}' required>
+        </div>
+        <div class="form-group">
+            <label for='digits'>Digits</label><br>
+            {% if digits %}
+                <input type="number" name='digits' min="1" max="5" value="{{digits}}" required>
+            {% else %} 
+                <input type="number" name='digits' min="1" max="5" value="1" required>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for='time'>Time</label><br> 
+            {% if time %}
+                <input type="number" name='time' min="30" max="90" step="5" value="{{time}}" required> seconds
+            {% else %} 
+                <input type="number" name='time' min="30" max="90" value="30" step="5" required> seconds
+            {% endif %}
+            
+        </div>
+        <br>
+        <a class="btn btn-secondary" href="{{url_for('instructions')}}">Instructions</a>
+        <button class="btn btn-success" type='submit'>Start</button>
+    </form>
+    <br>
+</div>
+{% endblock %}
+
+{% block script %} 
+<script>
+    sessionStorage.clear()
+</script>
+{% endblock %}

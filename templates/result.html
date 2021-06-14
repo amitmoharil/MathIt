@@ -1,0 +1,102 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<div class="mx-auto text-center pt-2 mt-2">
+    <h2>Score: {{session["correct"]}}/{{session["answered"]}} | Rank: {{rank}}</h2>
+</div>
+<div class="mx-auto text-center">
+<a class="btn btn-success" href="{{url_for('index')}}">Play Again</a>
+<button class="btn btn-secondary" id="toggler" onclick="Fire()">Show Leaderboard</button>
+</div>
+<div class="result">
+    <table class="table table-dark table-striped">
+        <tr>
+            <th>S.No.</th>
+            <th>Question</th>
+            <th>Your Answer</th>
+            <th>Correct Answer</th>
+            <th>Status</th>
+        </tr>
+        {% for i in range(1, session["total"]+1) %}
+            {% set op1, operator, op2 = session["question{}".format(i)] %}
+            <tr> 
+                <td>{{i}}</td>
+                <td>{{(op1|string+operator+op2|string)}} </td>
+                
+                {% if session["answer{}".format(i)] %}
+                    <td>{{(session["answer{}".format(i)])}} </td>
+                {% else %}
+                    <td>NA</td> 
+                {% endif %}
+                
+                <td>{{(session["result{}".format(i)])}} </td>
+                
+                {% if session["answer{}".format(i)]|string == session["result{}".format(i)]|string %}
+                    <td>&#9989;</td>
+                {% else %}
+                    <td>&#10060;</td> 
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="leaderboard">
+    <div class="mx-auto leaderboard-heading text-left">
+        <h4>
+            Leaderboard Category<br>
+            Digits = {{session["digits"]}},
+            Duration = {{session["time"]}} seconds
+        </h4>
+    </div>
+    <div class="leader">
+        <table class="table table-dark table-striped table-hover">
+            <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Score</th>
+                <th>Date</th>
+            </tr>
+            {% for i in range(leaderboard|length) %}
+                {% if leaderboard[i].id == id %}
+                    <tr id="my_rank_table" style="color:#08ff9c"> 
+                        <td>{{ranks[i]}}</td>
+                        <td>{{leaderboard[i].name}} </td>
+                        <td>{{leaderboard[i].score}} </td>
+                        <td>{{leaderboard[i].date.strftime("%d %b, %Y")}} </td>
+                    </tr>    
+                {% else %} 
+                    <tr> 
+                        <td>{{ranks[i]}}</td>
+                        <td>{{leaderboard[i].name}} </td>
+                        <td>{{leaderboard[i].score}} </td>
+                        <td>{{leaderboard[i].date.strftime("%d %b, %Y")}} </td>
+                    </tr>
+                {% endif %} 
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+<script>
+    function Fire()
+    {
+        if (document.getElementById('toggler').innerText == 'Show Leaderboard')
+        {
+            document.querySelectorAll('.leaderboard')[0].style.display = 'block'
+            document.querySelectorAll('.result')[0].style.display = 'none';
+            document.getElementById('toggler').innerText = 'Show Result';
+        }
+        else
+        {
+            document.querySelectorAll('.leaderboard')[0].style.display = 'none';
+            document.querySelectorAll('.result')[0].style.display = 'block';
+            document.getElementById('toggler').innerText = 'Show Leaderboard';
+        }
+    }
+</script> 
+{% endblock %}

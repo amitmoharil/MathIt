@@ -1,0 +1,101 @@
+.form-group{
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.formproject{
+    margin: auto;
+    width: 60%;
+    padding-left: 5%;
+    margin-top: 10%;
+}
+
+.instructions{
+    margin: auto;
+    width: 60%;
+    margin-top: 10%;
+    padding: 2%;
+}
+
+.result, .leader{
+    margin: auto;
+    width: 60%;
+    margin-top: 6%;
+    max-height: 700px;
+    scroll-behavior: smooth;
+    overflow: scroll;
+}
+
+.leaderboard{
+    display: none;
+}
+
+.question{
+    max-width: 50%;
+    display: inline-block;
+}
+
+.operand{
+    font-size: 35px;
+    text-align: right;
+}
+
+.heading {
+    position: relative;
+    margin-bottom: 2%;
+    border-bottom: 1px solid #999;
+    font-size: 20px;
+    padding:6px;
+}
+
+.heading span:last-child {
+    position: absolute;
+    right: 6px;   /* must be equal to parent's right padding */
+}
+
+.score{
+    padding-top: 2%;
+    margin-top: 4%;
+}
+
+@media (max-width: 575px)
+{
+    .result, .leader{
+        margin: auto;
+        width: 100%;
+        margin-top: 6%;
+        max-height: 700px;
+        scroll-behavior: smooth;
+        overflow: scroll;
+    }
+
+    .formproject{
+        margin: auto;
+        width: 80%;
+        padding-left: 5%;
+        margin-top: 10%;
+    }
+
+    .instructions{
+        margin: auto;
+        width: 80%;
+        margin-top: 10%;
+        padding: 2%;
+    }
+    
+    
+}
+
+#toggler{
+    text-align: center;
+}
+
+.leaderboard-heading{
+    margin: auto;
+    margin: 5%;
+    text-align: center;
+}
+
+#my_rank_table{
+    background-color: aqua;
+}

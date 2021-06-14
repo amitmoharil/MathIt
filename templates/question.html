@@ -1,0 +1,73 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<div class="card formproject p-2" >
+    <div class="heading">
+        <span id="question" class="d-inline">
+            Question {{question}}
+        </span>
+        <span id="timer">
+        </span>
+    </div>
+    <div class="question text-right">
+        <div class="operand">{{op1}}</div>
+        <div class="operand">{{operator}}&nbsp;{{op2}}</div>
+    </div>
+    <form class="form" action="{{url_for('evaluate', question=question)}}" method="POST">
+        <div class="form-group">
+            <label for='digits'>Answer</label><br>
+            <input type="number" name='answer' id="answer" required autofocus>
+        </div>
+        <div class="next">
+            <button class="btn btn-success" type='submit'>Next</button>
+        </div>
+        <div class="score">
+            Current Score: {{correct}}/{{answered}}
+        </div>
+    </form>
+    
+</div>
+{% endblock %}
+
+{% block script %} 
+<script>
+    function countdown(seconds) {
+        seconds = parseInt(sessionStorage.getItem("seconds"))||seconds;
+        
+        if(sessionStorage.getItem("timer-complete")=="true"){
+            console.log('Here');
+            sessionStorage.setItem("timer-complete",false);
+            window.location.replace("{{url_for('result')}}");
+        }
+        else{
+            function tick() {
+                seconds-=1;
+                sessionStorage.setItem("seconds", seconds)
+                var counter = document.getElementById("timer");
+                var current_minutes = parseInt(seconds/60);
+                var current_seconds = seconds % 60;
+                counter.innerHTML = current_minutes + ":" + (current_seconds < 10 ? "0" : "") + current_seconds;
+                if( seconds > 0 ) {
+                    setTimeout(tick, 1000);
+                }
+                else
+                {
+                    sessionStorage.setItem("timer-complete", true);
+                    window.location.replace("{{url_for('result')}}");
+                }
+
+                if (seconds <= 5)
+                {
+                    document.getElementById("timer").style.color = 'red';
+                }
+
+            }
+            tick();
+        }
+    }
+    
+    countdown({{session["time"]}})
+    
+
+</script>  
+{% endblock %}

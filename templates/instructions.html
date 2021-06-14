@@ -1,0 +1,31 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<div class="card instructions">
+    <p>
+        This is a mental math game. Before starting the game you need to provide your name, 
+        the number of digits that you want in your problems, how long do you wish to play (total time).
+    </p>
+    <ol>
+        <li>One Digit Question Examples:
+            <ul>
+                <li> 2+5 </li>
+                <li> 4-9 </li>
+                <li> 5*8 </li>
+            </ul>
+        </li>
+        <li>Two Digit Question Examples:
+            <ul>
+                <li> 22+15 </li>
+                <li> 14-29 </li>
+                <li> 53*81 </li>
+            </ul>
+        </li>
+    </ol>
+
+    <div class="back text-center">
+        <p>See you on the Leaderboard!</p>
+        <a class="btn btn-secondary" href="{{url_for('index')}}">Back</a>
+    </div>
+</div>
+{% endblock %}
